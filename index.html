@@ -89,13 +89,8 @@
   }
 
   .hero-inner {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 4rem;
-    align-items: center;
+    max-width: 600px;
   }
-
-  @media(max-width: 860px) { .hero-inner { grid-template-columns: 1fr; gap: 3rem; } }
 
   .hero-eyebrow {
     font-size: 0.7rem;
@@ -169,44 +164,6 @@
   }
 
   .btn-ghost:hover { border-color: var(--text-secondary); color: var(--text); }
-
-  /* ── Stats ── */
-  .hero-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    opacity: 0; animation: fadeUp 0.7s ease 0.45s forwards;
-  }
-
-  .stat-cell {
-    background: var(--bg-raised);
-    padding: 1.5rem 1.25rem;
-    text-align: center;
-    transition: background 0.25s;
-  }
-
-  .stat-cell:hover { background: var(--bg-card); }
-
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: 400;
-    color: var(--accent);
-    line-height: 1.1;
-    margin-bottom: 0.25rem;
-  }
-
-  .stat-lbl {
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
 
   /* ── Sections ── */
   section { padding: 5rem 0; }
@@ -365,48 +322,6 @@
     line-height: 1.65;
   }
 
-  /* ── Ideas ── */
-  .ideas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: 1rem;
-  }
-
-  .idea-card {
-    padding: 1.35rem;
-    border: 1px dashed var(--border);
-    border-radius: var(--radius);
-    transition: all 0.25s;
-  }
-
-  .idea-card:hover {
-    border-style: solid;
-    border-color: var(--accent-warm);
-    background: var(--bg-raised);
-  }
-
-  .idea-tag {
-    font-size: 0.58rem; font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent-warm);
-    margin-bottom: 0.4rem;
-    display: block;
-  }
-
-  .idea-card h4 {
-    font-family: var(--serif);
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 0.3rem;
-  }
-
-  .idea-card p {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
   /* ── About ── */
   .about-grid {
     display: grid;
@@ -476,7 +391,7 @@
     nav { padding: 0.85rem 1.25rem; }
     .nav-links { gap: 1.25rem; }
     section { padding: 3.5rem 0; }
-    .lessons-grid, .ideas-grid { grid-template-columns: 1fr; }
+    .lessons-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -487,7 +402,6 @@
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#lessons">Lessons</a></li>
-    <li><a href="#ideas">Ideas</a></li>
     <li><a href="#about">About</a></li>
   </ul>
 </nav>
@@ -497,22 +411,14 @@
     <div class="hero-inner">
       <div>
         <div class="hero-eyebrow">Healthcare · Analytics · AI</div>
-        <h1>Building intelligent systems that <em>move the needle</em></h1>
+        <h1>Tyler Hughes's <em>AI Laboratory</em></h1>
         <p class="hero-desc">
-          Business strategist and analytics architect. I build platforms that turn
-          complex healthcare data into clear decisions — and ship products that
-          people actually use.
+          Where I build, experiment, and ship. This is my working portfolio — real products, real code, real problems being solved.
         </p>
         <div class="hero-ctas">
           <a href="#work" class="btn btn-accent">View Projects</a>
           <a href="https://github.com/tyhugs" target="_blank" class="btn btn-ghost">GitHub ↗</a>
         </div>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-cell"><div class="stat-num">75+</div><div class="stat-lbl">Dashboards</div></div>
-        <div class="stat-cell"><div class="stat-num">50+</div><div class="stat-lbl">Data Sources</div></div>
-        <div class="stat-cell"><div class="stat-num">90</div><div class="stat-lbl">Providers</div></div>
-        <div class="stat-cell"><div class="stat-num">20K+</div><div class="stat-lbl">Target Users</div></div>
       </div>
     </div>
   </div>
@@ -525,22 +431,12 @@
     <div class="reveal">
       <div class="section-eyebrow">Current Work</div>
       <h2 class="section-title">The Portfolio</h2>
-      <p class="section-sub">Products in production, projects under construction, and platforms scaling across one of the nation's top academic health systems.</p>
+      <p class="section-sub">Live projects — click any to explore.</p>
     </div>
     <div class="projects-list">
 
-      <a href="https://tyhugs.github.io/BizIQ-Scheduling/" target="_blank" class="project-item reveal">
-        <div class="project-num">01</div>
-        <div class="project-body">
-          <h3>BizIQ Analytics Platform</h3>
-          <p>Enterprise BI engine I designed from scratch — 75+ Tableau dashboards, 50+ integrated data sources. Scaling from Urology to all surgical departments at Michigan Medicine with a July 1st faculty access target.</p>
-          <div class="tags"><span>Tableau</span><span>SQL</span><span>Python</span><span>Enterprise BI</span></div>
-        </div>
-        <div class="project-status s-live">Live <span class="arrow">↗</span></div>
-      </a>
-
       <a href="https://tyhugs.github.io/Urology/" target="_blank" class="project-item reveal">
-        <div class="project-num">02</div>
+        <div class="project-num">01</div>
         <div class="project-body">
           <h3>Michigan Urology — Patient Website</h3>
           <p>Patient-facing web platform with 55 faculty profiles, 25+ education articles, triage-enabled symptom finder, and QR-scannable provider pages. Zero hosting cost.</p>
@@ -550,7 +446,7 @@
       </a>
 
       <a href="https://tyhugs.github.io/Urology-Schedules/" target="_blank" class="project-item reveal">
-        <div class="project-num">03</div>
+        <div class="project-num">02</div>
         <div class="project-body">
           <h3>M-Genda — Provider Schedule Dashboard</h3>
           <p>Scheduling visibility for ~90 providers across six sites. Consolidates OR allocations, clinic templates, and QGenda data into a week-by-day matrix with four validation layers.</p>
@@ -560,7 +456,7 @@
       </a>
 
       <a href="https://tyhugs.github.io/Lee-Brothers/" target="_blank" class="project-item reveal">
-        <div class="project-num">04</div>
+        <div class="project-num">03</div>
         <div class="project-body">
           <h3>Lee Brothers — Client Website</h3>
           <p>Professional small business website built with the Website Builder skill. Full branding, mobile-responsive design, SEO fundamentals, and hosted on GitHub Pages at zero cost.</p>
@@ -570,7 +466,7 @@
       </a>
 
       <a href="https://tyhugs.github.io/Huda-Photography/" target="_blank" class="project-item reveal">
-        <div class="project-num">05</div>
+        <div class="project-num">04</div>
         <div class="project-body">
           <h3>Huda Photography — Client Website</h3>
           <p>Fine-art gallery-inspired photography portfolio for a newborn and maternity photographer. Award-winning design with session booking, pricing tiers, and review integration.</p>
@@ -605,26 +501,6 @@
 
 <div class="container"><div class="divider"></div></div>
 
-<section id="ideas">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow">On the Horizon</div>
-      <h2 class="section-title">What's Next</h2>
-      <p class="section-sub">Uncooked ideas and future experiments. Some will ship. Some won't. All are worth thinking about.</p>
-    </div>
-    <div class="ideas-grid">
-      <div class="idea-card reveal"><span class="idea-tag">SaaS Opportunity</span><h4>Patient Engagement Platform</h4><p>White-label version of the Urology site, priced per-provider for academic departments nationally. Competing with WellPrept at a fraction of the cost.</p></div>
-      <div class="idea-card reveal"><span class="idea-tag">Consulting</span><h4>Healthcare BI Consulting</h4><p>Package the BizIQ methodology into a done-for-you service for other health systems. Implementation fee plus monthly retainer.</p></div>
-      <div class="idea-card reveal"><span class="idea-tag">Agency</span><h4>Small Business Web Agency</h4><p>Leverage the website builder skill to produce professional sites for local businesses. Low overhead, high margin, immediately scalable.</p></div>
-      <div class="idea-card reveal"><span class="idea-tag">Internal Tool</span><h4>Clinical Project Management</h4><p>Purpose-built PM software for academic medical departments — designed for healthcare workflows, not engineering sprints.</p></div>
-      <div class="idea-card reveal"><span class="idea-tag">Internal Tool</span><h4>Employee Recognition Fund</h4><p>Structured recognition platform making it easy for leadership to reward staff contributions with trackable acknowledgment.</p></div>
-      <div class="idea-card reveal"><span class="idea-tag">Research</span><h4>AAMC Benchmark Intelligence</h4><p>Automated ingestion and analysis of AAMC data for continuous competitive positioning insights.</p></div>
-    </div>
-  </div>
-</section>
-
-<div class="container"><div class="divider"></div></div>
-
 <section id="about">
   <div class="container">
     <div class="reveal">
@@ -636,7 +512,6 @@
         <p><strong>Tyler Hughes</strong> is a business strategist and analytics architect at the University of Michigan Health, where he serves as Lead Business Consultant for the Department of Urology.</p>
         <p>He founded <strong>BizIQ</strong>, a comprehensive analytics platform now scaling across Michigan Medicine's surgical departments — and builds products ranging from patient-facing websites to AI-driven predictive models.</p>
         <p>With an MBA and a background spanning technology sales, IT leadership, and healthcare operations, Tyler operates at the intersection of data, strategy, and execution. He believes the best way to learn is to build, and the best way to prove value is to ship.</p>
-        <p style="color: var(--accent); font-weight: 500; font-size: 0.88rem;">Open to collaborations, consulting, and interesting problems.</p>
       </div>
       <ul class="connect-links">
         <li><a href="https://github.com/tyhugs" target="_blank"><div><div class="lbl">GitHub</div><div class="sub">Open source projects & code</div></div><span class="arr">→</span></a></li>
