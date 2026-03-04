@@ -4,24 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tyler Hughes — AI Laboratory</title>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Tyler Hughes builds analytics infrastructure that transforms how academic medicine makes decisions. Founder of BizIQ at University of Michigan Health.">
+<meta property="og:title" content="Tyler Hughes — AI Laboratory">
+<meta property="og:description" content="Healthcare analytics. Institutional transformation. One builder at a time.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://tyhugs.github.io">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #16191e;
-    --bg-raised: #1c2027;
-    --bg-card: #21252d;
-    --bg-hover: #272c36;
-    --text: #e4e4e7;
-    --text-secondary: #9ca3af;
-    --text-muted: #5c6370;
+    --bg: #0f1117;
+    --bg-raised: #161921;
+    --bg-card: #1a1d27;
+    --bg-glow: #1e2231;
+    --text: #e8e8ec;
+    --text-secondary: #a1a1b0;
+    --text-muted: #7a7a8c;
     --accent: #6ea4bf;
+    --accent-glow: rgba(110,164,191,0.12);
     --accent-warm: #c9a86c;
-    --border: #2a2f3a;
-    --border-light: #232830;
+    --accent-warm-glow: rgba(201,168,108,0.10);
+    --impact: #5bb98c;
+    --impact-glow: rgba(91,185,140,0.10);
+    --border: #252836;
+    --border-light: #1f2230;
     --serif: 'Source Serif 4', Georgia, serif;
-    --sans: 'Inter', -apple-system, sans-serif;
-    --shadow: 0 4px 24px rgba(0,0,0,0.2);
-    --radius: 6px;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --radius: 8px;
+    --radius-lg: 14px;
   }
 
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,510 +42,875 @@
     color: var(--text);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   ::selection { background: var(--accent); color: var(--bg); }
 
-  .container { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+  /* ── Skip Nav (a11y) ── */
+  .skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    z-index: 1000;
+    text-decoration: none;
+  }
+  .skip-nav:focus { top: 1rem; }
 
-  /* ── Nav ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1rem 2rem;
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 1.75rem; }
+
+  /* ── Animated Pulse Divider (The Sacred Detail) ── */
+  .pulse-divider {
+    width: 100%;
+    height: 40px;
+    margin: 0 auto;
+    overflow: hidden;
+    opacity: 0.5;
+    position: relative;
+  }
+  .pulse-divider svg { width: 100%; height: 100%; }
+  .pulse-line {
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    fill: none;
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    filter: drop-shadow(0 0 6px rgba(110,164,191,0.4));
+  }
+  .pulse-line.animated { animation: drawPulse 3s ease-out forwards; }
+  @keyframes drawPulse {
+    to { stroke-dashoffset: 0; }
+  }
+  .pulse-divider-warm .pulse-line {
+    stroke: var(--accent-warm);
+    filter: drop-shadow(0 0 6px rgba(201,168,108,0.4));
+  }
+  .pulse-divider-impact .pulse-line {
+    stroke: var(--impact);
+    filter: drop-shadow(0 0 6px rgba(91,185,140,0.4));
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 2.5rem 0 0;
+    position: relative;
+  }
+  .header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(20px);
-    background: rgba(22,25,30,0.8);
-    border-bottom: 1px solid var(--border-light);
-    transition: box-shadow 0.3s;
+    margin-bottom: 0.25rem;
   }
-
-  nav.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.3); }
-
-  .nav-logo {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--text);
-    letter-spacing: -0.01em;
+  .header-nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
   }
-
-  .nav-logo span { color: var(--text-muted); font-weight: 300; margin: 0 0.4em; }
-
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-
-  .nav-links a {
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: var(--text-secondary);
+  .header-nav a {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
     text-decoration: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     transition: color 0.25s;
   }
-
-  .nav-links a:hover { color: var(--text); }
+  .header-nav a:hover, .header-nav a:focus-visible { color: var(--accent); }
+  header .mark {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: -0.01em;
+  }
+  header .mark em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
 
   /* ── Hero ── */
   .hero {
-    min-height: 100vh;
+    padding: 4rem 0 2.5rem;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    padding: 7rem 0 5rem;
+    gap: 0.6rem;
   }
-
-  .hero-inner {
-    max-width: 600px;
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent-warm);
   }
-
-  .hero-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent-warm);
-    margin-bottom: 1.25rem;
-    opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
-  }
-
   .hero h1 {
     font-family: var(--serif);
-    font-size: clamp(2.5rem, 4.5vw, 3.6rem);
+    font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 400;
-    line-height: 1.18;
+    line-height: 1.2;
     letter-spacing: -0.02em;
     margin-bottom: 1.25rem;
-    opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
+    max-width: 620px;
   }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--accent);
+  .hero h1 strong {
+    font-weight: 600;
+    color: var(--text);
   }
-
-  .hero-desc {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.75;
-    max-width: 460px;
-    margin-bottom: 2rem;
-    opacity: 0; animation: fadeUp 0.7s ease 0.35s forwards;
-  }
-
-  .hero-ctas {
-    display: flex; gap: 0.75rem; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp 0.7s ease 0.5s forwards;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    padding: 0.7rem 1.4rem;
-    font-family: var(--sans);
-    font-size: 0.8rem; font-weight: 500;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    border-radius: var(--radius);
-    transition: all 0.25s;
-    cursor: pointer;
-  }
-
-  .btn-accent {
-    background: var(--accent);
-    color: var(--bg);
-    border: 1px solid var(--accent);
-  }
-
-  .btn-accent:hover { filter: brightness(1.15); transform: translateY(-1px); box-shadow: var(--shadow); }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-  }
-
-  .btn-ghost:hover { border-color: var(--text-secondary); color: var(--text); }
-
-  /* ── Sections ── */
-  section { padding: 5rem 0; }
-
-  .section-eyebrow {
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent-warm);
-    margin-bottom: 0.6rem;
-  }
-
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(1.7rem, 3vw, 2.3rem);
-    font-weight: 400;
-    margin-bottom: 0.6rem;
-  }
-
-  .section-sub {
+  .hero h1 .dim { color: var(--text-secondary); }
+  .hero-sub {
     font-size: 0.95rem;
     font-weight: 300;
     color: var(--text-secondary);
-    max-width: 500px;
     line-height: 1.7;
-    margin-bottom: 2.5rem;
+    max-width: 560px;
   }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
 
-  .divider { height: 1px; background: var(--border); }
-
-  /* ── Projects ── */
-  .projects-list { display: flex; flex-direction: column; }
-
-  .project-item {
-    display: grid;
-    grid-template-columns: 56px 1fr auto;
-    gap: 1.5rem;
-    align-items: start;
-    padding: 1.6rem 0;
-    border-bottom: 1px solid var(--border-light);
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.25s;
-  }
-
-  .project-item:first-child { border-top: 1px solid var(--border-light); }
-
-  .project-item:hover {
-    padding-left: 1rem; padding-right: 1rem;
-    margin-left: -1rem; margin-right: -1rem;
-    background: var(--bg-raised);
-    border-radius: var(--radius);
-  }
-
-  .project-num {
-    font-family: var(--serif);
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--text-muted);
-    padding-top: 0.05rem;
-  }
-
-  .project-body h3 {
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    font-weight: 500;
-    margin-bottom: 0.3rem;
-    transition: color 0.25s;
-  }
-
-  .project-item:hover h3 { color: var(--accent); }
-
-  .project-body p {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 0.6rem;
-  }
-
-  .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-
-  .tags span {
-    font-size: 0.6rem; font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 0.18rem 0.5rem;
-    background: rgba(110,164,191,0.08);
-    color: var(--accent);
-    border-radius: 3px;
-  }
-
-  .project-status {
-    font-size: 0.65rem; font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding-top: 0.15rem;
-  }
-
-  .s-live { color: var(--accent); }
-  .s-build { color: var(--accent-warm); }
-  .s-idea { color: var(--text-muted); }
-
-  .arrow {
-    display: inline-block; margin-left: 0.25rem;
-    transition: transform 0.25s;
-  }
-
-  .project-item:hover .arrow { transform: translate(3px, -3px); }
-
-  @media(max-width: 640px) {
-    .project-item { grid-template-columns: 1fr; gap: 0.4rem; }
-    .project-num { font-size: 0.9rem; color: var(--accent); }
-  }
-
-  /* ── Lessons ── */
-  .lessons-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .lesson-card {
-    padding: 1.5rem;
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    transition: all 0.25s;
-  }
-
-  .lesson-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent-warm);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-  }
-
-  .lesson-num {
-    font-family: var(--serif);
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--border);
-    line-height: 1;
-    margin-bottom: 0.6rem;
-  }
-
-  .lesson-card h4 {
-    font-family: var(--serif);
-    font-size: 1.05rem;
+  /* ── Sections ── */
+  section { position: relative; }
+  .section-label {
+    font-size: 0.58rem;
     font-weight: 600;
-    margin-bottom: 0.4rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 1.25rem;
+    padding-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: var(--accent-warm);
   }
 
-  .lesson-card p {
-    font-size: 0.84rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
+  /* ── BizIQ Feature (The Crown Jewel) ── */
+  .biziq {
+    padding: 2.5rem 0 2rem;
   }
-
-  /* ── About ── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3.5rem;
-    align-items: start;
+  .biziq-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-glow) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s;
   }
-
-  @media(max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
-
-  .about-text p {
-    font-size: 0.92rem;
-    color: var(--text-secondary);
-    line-height: 1.8;
+  .biziq-card:hover { border-color: var(--accent); }
+  .biziq-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .biziq-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--impact);
+    background: var(--impact-glow);
+    padding: 0.3rem 0.75rem;
+    border-radius: 50px;
     margin-bottom: 1rem;
   }
-
-  .about-text strong { color: var(--text); font-weight: 500; }
-
-  .connect-links { list-style: none; }
-  .connect-links li { border-bottom: 1px solid var(--border-light); }
-  .connect-links li:first-child { border-top: 1px solid var(--border-light); }
-
-  .connect-links a {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.9rem 0;
-    text-decoration: none;
-    color: var(--text-secondary);
+  .biziq-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--impact);
+    animation: livePulse 2s ease-in-out infinite;
+  }
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .biziq h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .biziq-desc {
     font-size: 0.88rem;
-    transition: all 0.25s;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 540px;
   }
-
-  .connect-links a:hover { color: var(--accent); padding-left: 0.4rem; }
-  .connect-links .lbl { font-weight: 500; color: var(--text); }
-  .connect-links .sub { font-size: 0.75rem; color: var(--text-muted); }
-
-  .connect-links .arr {
-    color: var(--text-muted);
-    transition: all 0.25s;
+  .biziq-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
   }
-
-  .connect-links a:hover .arr { color: var(--accent); transform: translateX(3px); }
-
-  /* ── Footer ── */
-  footer {
-    padding: 2.5rem 0;
+  .metric {
     text-align: center;
+    padding: 0.75rem 0.5rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-light);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .metric:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .metric-num {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+  .metric-label {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+  }
+
+  /* ── Work / Impact Stories ── */
+  .work { padding: 1.5rem 0 2rem; }
+  .work-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+  .work-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1.35rem 1.5rem;
+    background: var(--bg-raised);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .work-item::after {
+    content: '\2197';
+    position: absolute;
+    top: 1.35rem;
+    right: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: all 0.3s;
+  }
+  .work-item:hover {
+    border-color: var(--accent);
+    background: var(--bg-card);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+  .work-item:hover::after { color: var(--accent); transform: translate(2px, -2px); }
+  .work-item:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .work-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .work-item h3 {
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    font-weight: 500;
+    transition: color 0.25s;
+  }
+  .work-item:hover h3 { color: var(--accent); }
+  .work-tag {
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 50px;
+  }
+  .tag-live { color: var(--accent); background: var(--accent-glow); }
+  .tag-building { color: var(--accent-warm); background: var(--accent-warm-glow); }
+  .tag-prototype {
+    color: #e0a040;
+    background: rgba(224,160,64,0.12);
+  }
+  .work-disclaimer {
+    font-size: 0.75rem;
+    color: #d4a84b;
+    background: rgba(212,168,75,0.07);
+    border: 1px solid rgba(212,168,75,0.18);
+    border-radius: var(--radius);
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.55;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .disclaimer-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+  .work-impact {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.65rem;
+    padding-right: 2rem;
+  }
+  .work-evidence {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .evidence-chip {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    padding: 0.2rem 0.55rem;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+
+  /* ── Principles ── */
+  .principles { padding: 1.5rem 0 2rem; }
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+  .principle {
+    padding: 1.1rem;
+    background: var(--bg-raised);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+  }
+  .principle:hover {
+    border-color: var(--accent-warm);
+    transform: translateY(-1px);
+  }
+  .principle-num {
+    font-family: var(--serif);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-warm);
+    opacity: 0.5;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .principle h4 {
+    font-family: var(--serif);
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+  .principle p {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── About (The Builder) ── */
+  .about {
+    padding: 2rem 0 1.5rem;
     border-top: 1px solid var(--border);
   }
-
-  .footer-text {
-    font-size: 0.75rem;
+  .about-narrative {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+  .about-narrative strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .about-narrative em {
+    color: var(--accent);
+    font-style: italic;
+  }
+  .about-credentials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .credential {
+    font-size: 0.62rem;
+    font-weight: 500;
     color: var(--text-muted);
+    background: var(--bg-raised);
+    border: 1px solid var(--border-light);
+    padding: 0.25rem 0.65rem;
+    border-radius: 50px;
     letter-spacing: 0.03em;
   }
 
-  /* ── Reveal ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  /* ── Ventures ── */
+  .ventures { padding: 1.5rem 0 2rem; }
+  .ventures-intro {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  .ventures-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+  .venture {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 1.1rem;
+    background: var(--bg-raised);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    transition: all 0.3s;
+  }
+  .venture:hover {
+    border-color: var(--accent-warm);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+  }
+  .venture:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .venture h4 {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    transition: color 0.25s;
+  }
+  .venture:hover h4 { color: var(--accent-warm); }
+  .venture p {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .venture-label {
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    margin-bottom: 0.5rem;
+    display: block;
   }
 
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* ── Footer ── */
+  footer {
+    padding: 2rem 0 2.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+    text-align: center;
+  }
+  .footer-thesis {
+    font-family: var(--serif);
+    font-size: 0.88rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+  .footer-meta {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .footer-links a {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .footer-links a:hover, .footer-links a:focus-visible { color: var(--accent); }
 
-  @media(max-width: 640px) {
-    nav { padding: 0.85rem 1.25rem; }
-    .nav-links { gap: 1.25rem; }
-    section { padding: 3.5rem 0; }
-    .lessons-grid { grid-template-columns: 1fr; }
+  /* ── Fade-in Animations ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .biziq-metrics { grid-template-columns: repeat(2, 1fr); }
+    .hero h1 { font-size: 1.75rem; }
+    .principles-grid { grid-template-columns: 1fr; }
+    .ventures-row { grid-template-columns: 1fr; }
+    .biziq-card { padding: 1.5rem 1.25rem; }
+    .work-item { padding: 1.1rem 1.15rem; }
+    .work-evidence { display: none; }
+    .header-nav { gap: 0.85rem; }
+  }
+
+  @media (max-width: 380px) {
+    .biziq-metrics { grid-template-columns: 1fr 1fr; }
+    .metric-num { font-size: 1.3rem; }
+    .header-nav .nav-sep { display: none; }
   }
 </style>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="nav-logo">Tyler Hughes <span>|</span> AI Lab</div>
-  <ul class="nav-links">
-    <li><a href="#work">Work</a></li>
-    <li><a href="#lessons">Lessons</a></li>
-    <li><a href="#about">About</a></li>
-  </ul>
-</nav>
+<a href="#main" class="skip-nav">Skip to content</a>
 
-<section class="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-eyebrow">Healthcare · Analytics · AI</div>
-        <h1>Tyler Hughes's <em>AI Laboratory</em></h1>
-        <p class="hero-desc">
-          Where I build, experiment, and ship. This is my working portfolio — real products, real code, real problems being solved.
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header role="banner">
+    <div class="header-row">
+      <span class="mark">Tyler Hughes's <em>AI Laboratory</em></span>
+      <nav class="header-nav" aria-label="Primary navigation">
+        <a href="#platform">Platform</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <span class="nav-sep" aria-hidden="true" style="color:var(--border)">&#183;</span>
+        <a href="https://github.com/tyhugs" target="_blank" rel="noopener noreferrer">GitHub &#8599;</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="main" role="main">
+  <section class="hero reveal" aria-label="Introduction">
+    <div class="hero-eyebrow" aria-hidden="true">University of Michigan Health</div>
+    <h1>
+      <strong>I build the analytics infrastructure</strong>
+      <span class="dim"> that changes how academic medicine makes decisions.</span>
+    </h1>
+    <p class="hero-sub">
+      Lead Business Consultant, Department of Urology. Founder of <strong>BizIQ</strong> &#8212; the analytics platform that became the department's operating system. I see the problems others step over, and I build before anyone asks.
+    </p>
+  </section>
+
+  <!-- SACRED DETAIL: Pulse Divider -->
+  <div class="pulse-divider pulse-divider-impact" aria-hidden="true">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,20 L300,20 L330,20 L345,5 L360,35 L375,8 L390,32 L405,15 L420,25 L435,20 L480,20 L1200,20" />
+    </svg>
+  </div>
+
+  <!-- BIZIQ: THE CROWN JEWEL -->
+  <section class="biziq reveal" id="platform" aria-label="BizIQ Analytics Platform">
+    <div class="section-label">The Platform</div>
+    <div class="biziq-card">
+      <div class="biziq-badge">Scaling Across Michigan Medicine</div>
+      <h3>BizIQ</h3>
+      <p class="biziq-desc">
+        What started as one dashboard for one department became the comprehensive analytics platform serving Michigan Medicine's surgical departments. BizIQ is the operating intelligence layer &#8212; the place where faculty compensation models, provider scheduling, OR utilization, and strategic initiatives converge into decisions.
+      </p>
+      <div class="biziq-metrics">
+        <div class="metric">
+          <span class="metric-num count-up" data-target="75">0</span>
+          <div class="metric-label">Tableau Dashboards</div>
+        </div>
+        <div class="metric">
+          <span class="metric-num count-up" data-target="90">0</span>
+          <div class="metric-label">Providers Tracked</div>
+        </div>
+        <div class="metric">
+          <span class="metric-num count-up" data-target="6">0</span>
+          <div class="metric-label">Clinical Sites</div>
+        </div>
+        <div class="metric">
+          <span class="metric-num" style="font-size:1.1rem">Dept-Wide</span>
+          <div class="metric-label">Adoption</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pulse-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,20 L400,20 L430,20 L445,8 L460,32 L475,12 L490,28 L505,20 L540,20 L1200,20" />
+    </svg>
+  </div>
+
+  <!-- THE WORK -->
+  <section class="work reveal" id="work" aria-label="Featured Work">
+    <div class="section-label">The Work</div>
+    <div class="work-disclaimer">
+      <span class="disclaimer-icon" aria-hidden="true">&#9888;</span>
+      These are working prototypes &#8212; built to demonstrate capability and strategic thinking, not yet production-grade deployments. All content, data, and functionality are for demonstration purposes.
+    </div>
+    <div class="work-grid">
+
+      <a href="https://tyhugs.github.io/Urology/" target="_blank" rel="noopener noreferrer" class="work-item">
+        <div class="work-header">
+          <h3>Michigan Urology &#8212; Patient Website</h3>
+          <span class="work-tag tag-prototype">Prototype</span>
+        </div>
+        <p class="work-impact">
+          Patients had no single front door. Dozens of entry points, fragmented information, no way to find the right provider. I built the digital front door the department never had &#8212; a comprehensive patient-facing platform that consolidates the entire department's clinical presence.
         </p>
-        <div class="hero-ctas">
-          <a href="#work" class="btn btn-accent">View Projects</a>
-          <a href="https://github.com/tyhugs" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+        <div class="work-evidence">
+          <span class="evidence-chip">55 Faculty Profiles</span>
+          <span class="evidence-chip">25+ Education Articles</span>
+          <span class="evidence-chip">Symptom-Based Triage</span>
+          <span class="evidence-chip">QR Provider Pages</span>
         </div>
+      </a>
+
+      <a href="https://tyhugs.github.io/BizIQ-Scheduling/" target="_blank" rel="noopener noreferrer" class="work-item">
+        <div class="work-header">
+          <h3>BizIQ Scheduling</h3>
+          <span class="work-tag tag-prototype">Prototype</span>
+        </div>
+        <p class="work-impact">
+          The scheduling intelligence layer for BizIQ &#8212; transforming how the department visualizes and manages provider allocation across clinical sites, OR blocks, and clinic templates. Built to turn scheduling chaos into strategic clarity.
+        </p>
+        <div class="work-evidence">
+          <span class="evidence-chip">~90 Providers</span>
+          <span class="evidence-chip">6 Sites</span>
+          <span class="evidence-chip">OR Allocations</span>
+          <span class="evidence-chip">AI Agent Layer</span>
+        </div>
+      </a>
+
+      <a href="https://tyhugs.github.io/Urology-Schedules/" target="_blank" rel="noopener noreferrer" class="work-item">
+        <div class="work-header">
+          <h3>Provider Schedules</h3>
+          <span class="work-tag tag-prototype">Prototype</span>
+        </div>
+        <p class="work-impact">
+          A streamlined scheduling dashboard for provider-level visibility &#8212; clinic templates, coverage patterns, and QGenda integration in one view. Designed to give operations leaders and faculty instant access to who's where and when.
+        </p>
+        <div class="work-evidence">
+          <span class="evidence-chip">QGenda Integration</span>
+          <span class="evidence-chip">Clinic Templates</span>
+          <span class="evidence-chip">Coverage Tracking</span>
+        </div>
+      </a>
+
+      <a href="https://tyhugs.github.io/Urodynamics/" target="_blank" rel="noopener noreferrer" class="work-item">
+        <div class="work-header">
+          <h3>Urodynamics Portal</h3>
+          <span class="work-tag tag-prototype">Prototype</span>
+        </div>
+        <p class="work-impact">
+          A dedicated clinical portal for the urodynamics program &#8212; consolidating procedure workflows, provider information, and patient-facing resources into a single, accessible entry point for one of urology's most specialized services.
+        </p>
+        <div class="work-evidence">
+          <span class="evidence-chip">Subspecialty Focus</span>
+          <span class="evidence-chip">Clinical Workflows</span>
+          <span class="evidence-chip">Patient Resources</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="pulse-divider pulse-divider-warm" aria-hidden="true">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,20 L500,20 L530,20 L542,10 L554,30 L566,6 L578,34 L590,18 L602,22 L620,20 L1200,20" />
+    </svg>
+  </div>
+
+  <!-- PRINCIPLES -->
+  <section class="principles reveal" aria-label="Operating Principles">
+    <div class="section-label">Operating Principles</div>
+    <div class="principles-grid">
+      <div class="principle">
+        <span class="principle-num" aria-hidden="true">01</span>
+        <h4>Ship First, Perfect Later</h4>
+        <p>The best dashboard I ever built was the ugly one I shipped in 48 hours. It was wrong in six places, but it was in the hands of the people who needed it. We fixed it together. That's how trust gets built.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num" aria-hidden="true">02</span>
+        <h4>Build for the Decision Maker</h4>
+        <p>Nobody in a leadership meeting has ever asked about my R&#178; score. They ask whether we should hire another surgeon, open a Saturday clinic, or renegotiate an OR block. Build for that question.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num" aria-hidden="true">03</span>
+        <h4>AI Is a Tool, Not a Strategy</h4>
+        <p>I've seen teams buy a model and then search for a problem. Start with the pain point someone is losing sleep over. Then figure out whether the answer is AI, a spreadsheet, or a conversation.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num" aria-hidden="true">04</span>
+        <h4>Data Quality Beats Model Complexity</h4>
+        <p>I spent three weeks building a predictive model before realizing the source data had duplicate provider entries across systems. The real ROI was in the cleanup. It always is.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num" aria-hidden="true">05</span>
+        <h4>Automate the Boring Stuff</h4>
+        <p>If you're doing it twice, script it. If you're doing it weekly, build a pipeline. The hours I've saved on reporting automation funded every creative project on this page.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-num" aria-hidden="true">06</span>
+        <h4>Share the Work Before It's Ready</h4>
+        <p>The best opportunities I've had came from showing something unfinished to someone who could see its potential. Perfection is the enemy of connection.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="container"><div class="divider"></div></div>
-
-<section id="work">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow">Current Work</div>
-      <h2 class="section-title">The Portfolio</h2>
-      <p class="section-sub">Live projects — click any to explore.</p>
+  <!-- ABOUT -->
+  <section class="about reveal" id="about" aria-label="About Tyler Hughes">
+    <div class="section-label">The Builder</div>
+    <p class="about-narrative">
+      <strong>Tyler Hughes</strong> is a business strategist and analytics architect at the <strong>University of Michigan Health</strong>, where he leads business operations and strategic initiatives for the Department of Urology. He founded <em>BizIQ</em>, the analytics platform that became the department's primary decision-support infrastructure &#8212; now scaling across Michigan Medicine's surgical departments.
+    </p>
+    <p class="about-narrative">
+      Tyler builds at the intersection of <strong>clinical operations</strong> and <strong>technology</strong> &#8212; turning scheduling chaos into dashboards, fragmented patient journeys into digital front doors, and institutional data into executive decisions. He believes every clinical decision deserves better data, and every problem worth solving deserves someone willing to build the first version before anyone asks.
+    </p>
+    <div class="about-credentials">
+      <span class="credential">MBA</span>
+      <span class="credential">Healthcare Operations</span>
+      <span class="credential">Technology Sales Leadership</span>
+      <span class="credential">IT Infrastructure</span>
+      <span class="credential">Tableau Analytics</span>
+      <span class="credential">AI/ML Applications</span>
     </div>
-    <div class="projects-list">
+  </section>
 
-      <a href="https://tyhugs.github.io/Urology/" target="_blank" class="project-item reveal">
-        <div class="project-num">01</div>
-        <div class="project-body">
-          <h3>Michigan Urology — Patient Website</h3>
-          <p>Patient-facing web platform with 55 faculty profiles, 25+ education articles, triage-enabled symptom finder, and QR-scannable provider pages. Zero hosting cost.</p>
-          <div class="tags"><span>HTML / CSS / JS</span><span>GitHub Pages</span><span>Patient UX</span></div>
-        </div>
-        <div class="project-status s-live">Live <span class="arrow">↗</span></div>
+  <div class="pulse-divider pulse-divider-warm" aria-hidden="true">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+      <path class="pulse-line" d="M0,20 L200,20 L230,20 L248,12 L266,28 L284,8 L302,32 L320,16 L338,24 L360,20 L1200,20" />
+    </svg>
+  </div>
+
+  <!-- VENTURES -->
+  <section class="ventures reveal" aria-label="Independent Ventures">
+    <div class="section-label">Ventures</div>
+    <p class="ventures-intro">
+      Beyond the institution, I build digital presence for small businesses that deserve to look as professional as they are. Same craft, different scale.
+    </p>
+    <div class="ventures-row">
+      <a href="https://tyhugs.github.io/Lee-Brothers/" target="_blank" rel="noopener noreferrer" class="venture">
+        <span class="venture-label">Client Work</span>
+        <h4>Lee Brothers Xscapes</h4>
+        <p>Full branding, mobile-responsive site, local SEO &#8212; for a lawn care company that had zero digital presence.</p>
       </a>
-
-      <a href="https://tyhugs.github.io/Urology-Schedules/" target="_blank" class="project-item reveal">
-        <div class="project-num">02</div>
-        <div class="project-body">
-          <h3>M-Genda — Provider Schedule Dashboard</h3>
-          <p>Scheduling visibility for ~90 providers across six sites. Consolidates OR allocations, clinic templates, and QGenda data into a week-by-day matrix with four validation layers.</p>
-          <div class="tags"><span>React</span><span>GitHub Pages</span><span>Excel Parsing</span><span>QGenda</span></div>
-        </div>
-        <div class="project-status s-build">Building <span class="arrow">↗</span></div>
+      <a href="https://tyhugs.github.io/Huda-Photography/" target="_blank" rel="noopener noreferrer" class="venture">
+        <span class="venture-label">Client Work</span>
+        <h4>Huda Photography</h4>
+        <p>Gallery-inspired portfolio for a newborn and maternity photographer. Art-directed, conversion-optimized.</p>
       </a>
-
-      <a href="https://tyhugs.github.io/Lee-Brothers/" target="_blank" class="project-item reveal">
-        <div class="project-num">03</div>
-        <div class="project-body">
-          <h3>Lee Brothers — Client Website</h3>
-          <p>Professional small business website built with the Website Builder skill. Full branding, mobile-responsive design, SEO fundamentals, and hosted on GitHub Pages at zero cost.</p>
-          <div class="tags"><span>Client Work</span><span>GitHub Pages</span><span>Small Business</span></div>
-        </div>
-        <div class="project-status s-live">Live <span class="arrow">↗</span></div>
-      </a>
-
-      <a href="https://tyhugs.github.io/Huda-Photography/" target="_blank" class="project-item reveal">
-        <div class="project-num">04</div>
-        <div class="project-body">
-          <h3>Huda Photography — Client Website</h3>
-          <p>Fine-art gallery-inspired photography portfolio for a newborn and maternity photographer. Award-winning design with session booking, pricing tiers, and review integration.</p>
-          <div class="tags"><span>Client Work</span><span>GitHub Pages</span><span>Photography</span></div>
-        </div>
-        <div class="project-status s-live">Live <span class="arrow">↗</span></div>
-      </a>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="container"><div class="divider"></div></div>
+  </main>
 
-<section id="lessons">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow">Lessons Learned</div>
-      <h2 class="section-title">Notes from the Lab</h2>
-      <p class="section-sub">Principles earned the hard way — from building analytics infrastructure, shipping products, and navigating healthcare politics.</p>
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <p class="footer-thesis">"Every clinical decision deserves better data.<br>Every problem worth solving deserves a builder."</p>
+    <div class="footer-links">
+      <a href="https://github.com/tyhugs" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/tyhughes1" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
-    <div class="lessons-grid">
-      <div class="lesson-card reveal"><div class="lesson-num">01</div><h4>Ship First, Perfect Later</h4><p>The best dashboard I ever built was the ugly one I shipped in 48 hours. Iteration beats perfection. Get it in front of users and let their feedback drive v2.</p></div>
-      <div class="lesson-card reveal"><div class="lesson-num">02</div><h4>AI Is a Tool, Not a Strategy</h4><p>The value comes from applying AI to specific, painful problems — not from the technology itself. Start with the pain point, then find the right model.</p></div>
-      <div class="lesson-card reveal"><div class="lesson-num">03</div><h4>Data Quality Beats Model Complexity</h4><p>Spent weeks on a sophisticated ML pipeline only to realize the real ROI was cleaning the input data. Garbage in, garbage out is a law.</p></div>
-      <div class="lesson-card reveal"><div class="lesson-num">04</div><h4>Build for the Decision Maker</h4><p>Nobody cares about your R² score. They care about whether to hire another surgeon. Translate analytics into decisions, not dashboards.</p></div>
-      <div class="lesson-card reveal"><div class="lesson-num">05</div><h4>Automate the Boring Stuff</h4><p>Every hour spent automating a manual report paid back tenfold. If you're doing it twice, script it. If you're doing it weekly, build a pipeline.</p></div>
-      <div class="lesson-card reveal"><div class="lesson-num">06</div><h4>Your Network Is Your Net Worth</h4><p>The best opportunities came from sharing work openly. A GitHub repo, a lunch conversation, a demo that impressed the right person at the right time.</p></div>
-    </div>
-  </div>
-</section>
+    <p class="footer-meta">Tyler Hughes &#183; AI Laboratory &#183; 2026</p>
+  </footer>
 
-<div class="container"><div class="divider"></div></div>
-
-<section id="about">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-eyebrow">About</div>
-      <h2 class="section-title">The Person Behind the Lab</h2>
-    </div>
-    <div class="about-grid reveal">
-      <div class="about-text">
-        <p><strong>Tyler Hughes</strong> is a business strategist and analytics architect at the University of Michigan Health, where he serves as Lead Business Consultant for the Department of Urology.</p>
-        <p>He founded <strong>BizIQ</strong>, a comprehensive analytics platform now scaling across Michigan Medicine's surgical departments — and builds products ranging from patient-facing websites to AI-driven predictive models.</p>
-        <p>With an MBA and a background spanning technology sales, IT leadership, and healthcare operations, Tyler operates at the intersection of data, strategy, and execution. He believes the best way to learn is to build, and the best way to prove value is to ship.</p>
-      </div>
-      <ul class="connect-links">
-        <li><a href="https://github.com/tyhugs" target="_blank"><div><div class="lbl">GitHub</div><div class="sub">Open source projects & code</div></div><span class="arr">→</span></a></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <p class="footer-text">Tyler Hughes · AI Laboratory · 2025</p>
-  </div>
-</footer>
+</div>
 
 <script>
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 60);
+  // Scroll-triggered fade-ins
+  var revealIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealIO.unobserve(e.target);
+      }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el) { revealIO.observe(el); });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // Pulse line draw-on-scroll
+  var pulseIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var line = e.target.querySelector('.pulse-line');
+        if (line) line.classList.add('animated');
+        pulseIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.pulse-divider').forEach(function(el) { pulseIO.observe(el); });
+
+  // Count-up animation for BizIQ metrics
+  var countIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var el = e.target;
+        var target = parseInt(el.getAttribute('data-target'));
+        if (isNaN(target)) return;
+        var current = 0;
+        var step = Math.max(1, Math.floor(target / 40));
+        var interval = setInterval(function() {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(interval);
+          }
+          el.textContent = current + '+';
+        }, 30);
+        countIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.8 });
+  document.querySelectorAll('.count-up[data-target]').forEach(function(el) { countIO.observe(el); });
+
+  // Smooth scroll for anchor nav
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 </script>
 
 </body>
