@@ -18,7 +18,7 @@
   --bg-glow: #1e2231;
   --text: #e8e8ec;
   --text-secondary: #a8a8b8;
-  --text-muted: #7a7a8c;
+  --text-muted: #8e8ea0; /* Fixed: was #7a7a8c, now ≥4.5:1 on --bg */
   --accent: #6ea4bf;
   --accent-glow: rgba(110,164,191,0.10);
   --accent-warm: #c9a86c;
@@ -33,6 +33,7 @@
   --sans: 'DM Sans', -apple-system, sans-serif;
   --radius: 10px;
   --radius-sm: 6px;
+  --space-section: 2rem;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -50,7 +51,6 @@ body {
 
 ::selection { background: var(--accent); color: var(--bg); }
 
-/* ── A11y ── */
 .skip-nav {
   position: absolute; top: -100%; left: 1rem;
   padding: 0.5rem 1rem; background: var(--accent); color: var(--bg);
@@ -91,36 +91,6 @@ body {
 .topnav-links a:hover, .topnav-links a:focus-visible { color: var(--accent); }
 .nav-dot { color: var(--border); font-size: 0.5rem; user-select: none; }
 
-/* ── Hero / Welcome ── */
-.hero { padding: 3.5rem 0 2.5rem; }
-.hero-wave {
-  font-size: 1.6rem; display: inline-block; margin-bottom: 0.75rem;
-  animation: wave 2.5s ease-in-out 0.5s 1;
-  transform-origin: 70% 70%;
-}
-@keyframes wave {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(14deg); }
-  20% { transform: rotate(-8deg); }
-  30% { transform: rotate(14deg); }
-  40% { transform: rotate(-4deg); }
-  50% { transform: rotate(10deg); }
-  60%,100% { transform: rotate(0deg); }
-}
-.hero h1 {
-  font-family: var(--serif);
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  font-weight: 400; line-height: 1.35;
-  letter-spacing: -0.015em; margin-bottom: 1rem;
-  max-width: 600px;
-}
-.hero h1 strong { font-weight: 600; }
-.hero-sub {
-  font-size: 0.9rem; font-weight: 300;
-  color: var(--text-secondary); line-height: 1.7; max-width: 540px;
-}
-.hero-sub strong { color: var(--text); font-weight: 500; }
-
 /* ── Pulse Dividers ── */
 .pulse-divider {
   width: 100%; height: 36px; overflow: hidden; opacity: 0.45;
@@ -135,6 +105,22 @@ body {
 @keyframes drawPulse { to { stroke-dashoffset: 0; } }
 .pulse-warm .pulse-line { stroke: var(--accent-warm); filter: drop-shadow(0 0 5px rgba(201,168,108,0.35)); }
 .pulse-green .pulse-line { stroke: var(--green); filter: drop-shadow(0 0 5px rgba(91,185,140,0.35)); }
+
+/* ── Hero ── */
+.hero { padding: 3.5rem 0 var(--space-section); }
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 400; line-height: 1.35;
+  letter-spacing: -0.015em; margin-bottom: 1rem;
+  max-width: 600px;
+}
+.hero h1 strong { font-weight: 600; }
+.hero-sub {
+  font-size: 0.9rem; font-weight: 300;
+  color: var(--text-secondary); line-height: 1.7; max-width: 560px;
+}
+.hero-sub strong { color: var(--text); font-weight: 500; }
 
 /* ── Section Labels ── */
 .section-label {
@@ -152,7 +138,7 @@ body {
 }
 
 /* ── BizIQ Card ── */
-.biziq { padding: 2rem 0 1.5rem; }
+.biziq { padding: var(--space-section) 0; }
 a.biziq-card {
   text-decoration: none; color: inherit; display: block; cursor: pointer;
 }
@@ -183,14 +169,29 @@ a.biziq-card:hover .biziq-arrow { color: var(--accent); transform: translate(2px
   background: var(--green); animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.biziq-title-row {
+  display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.15rem;
+}
 .biziq h3 {
   font-family: var(--serif); font-size: 1.4rem;
-  font-weight: 500; margin-bottom: 0.4rem; letter-spacing: -0.01em;
+  font-weight: 500; letter-spacing: -0.01em;
+}
+.biziq-arrow {
+  font-size: 0.75rem; color: var(--text-muted); transition: all 0.3s;
 }
 .biziq-desc {
   font-size: 0.85rem; color: var(--text-secondary);
-  line-height: 1.7; margin-bottom: 1.35rem; max-width: 520px;
+  line-height: 1.7; margin-bottom: 1.25rem; max-width: 540px;
 }
+.biziq-impact {
+  font-size: 0.8rem; color: var(--text-secondary);
+  line-height: 1.65; margin-bottom: 1.35rem;
+  padding: 0.85rem 1rem;
+  background: rgba(91,185,140,0.04);
+  border-left: 3px solid var(--green);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.biziq-impact strong { color: var(--text); font-weight: 500; }
 .biziq-metrics {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;
 }
@@ -208,6 +209,10 @@ a.biziq-card:hover .biziq-arrow { color: var(--accent); transform: translate(2px
   font-size: 0.58rem; color: var(--text-muted);
   text-transform: uppercase; letter-spacing: 0.07em; line-height: 1.3;
 }
+.biziq-note {
+  font-size: 0.65rem; color: var(--text-muted);
+  margin-top: 1rem; font-style: italic;
+}
 
 /* ── Status Badges ── */
 .badge {
@@ -216,14 +221,10 @@ a.biziq-card:hover .biziq-arrow { color: var(--accent); transform: translate(2px
   text-transform: uppercase; padding: 0.2rem 0.55rem;
   border-radius: 50px; margin-top: 0.35rem;
 }
-.badge-prod { color: var(--green); background: var(--green-glow); }
-.badge-prod::before {
-  content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green);
-}
 .badge-proto { color: var(--amber); background: var(--amber-glow); }
 
 /* ── Tile Grid ── */
-.tiles { padding: 1.5rem 0 1.5rem; }
+.tiles { padding: var(--space-section) 0; }
 .tile-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem;
 }
@@ -268,6 +269,12 @@ a.biziq-card:hover .biziq-arrow { color: var(--accent); transform: translate(2px
   background: rgba(255,255,255,0.03); border: 1px solid var(--border-light);
   padding: 0.15rem 0.45rem; border-radius: 50px; white-space: nowrap;
 }
+/* Featured tile spans full width */
+.tile-featured {
+  grid-column: 1 / -1;
+  min-height: auto;
+}
+.tile-featured .tile-desc { max-width: 540px; }
 
 /* ── Disclaimer ── */
 .disclaimer {
@@ -275,28 +282,58 @@ a.biziq-card:hover .biziq-arrow { color: var(--accent); transform: translate(2px
   background: rgba(224,160,64,0.06); border: 1px solid rgba(224,160,64,0.15);
   border-radius: var(--radius-sm); padding: 0.6rem 0.85rem;
   margin-bottom: 1rem; line-height: 1.5;
-  display: flex; align-items: flex-start; gap: 0.45rem;
+  display: flex; align-items: flex-start; gap: 0.5rem;
 }
-.disclaimer-icon { font-size: 0.85rem; flex-shrink: 0; }
+.disclaimer svg { flex-shrink: 0; margin-top: 0.1rem; }
+
+/* ── More Experiments ── */
+.more-list {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.85rem;
+}
+.more-link {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  font-size: 0.72rem; font-weight: 500; color: var(--text-muted);
+  text-decoration: none; padding: 0.4rem 0.85rem;
+  background: var(--bg-raised); border: 1px solid var(--border-light);
+  border-radius: 50px; transition: all 0.25s;
+}
+.more-link:hover {
+  color: var(--accent); border-color: var(--accent);
+  background: var(--bg-card);
+}
+.more-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.more-arrow { font-size: 0.65rem; transition: transform 0.25s; }
+.more-link:hover .more-arrow { transform: translate(1px,-1px); }
+
+/* ── Principles ── */
+.principles { padding: var(--space-section) 0; }
+.prin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+.prin {
+  padding: 1rem; background: var(--bg-raised);
+  border: 1px solid var(--border-light); border-radius: var(--radius);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.prin:hover { border-color: var(--accent-warm); transform: translateY(-1px); }
+.prin-n {
+  font-family: var(--serif); font-size: 0.68rem; font-weight: 600;
+  color: var(--accent-warm); opacity: 0.45; margin-bottom: 0.3rem; display: block;
+}
+.prin h4 {
+  font-family: var(--serif); font-size: 0.85rem;
+  font-weight: 600; margin-bottom: 0.25rem; line-height: 1.3;
+}
+.prin p { font-size: 0.72rem; color: var(--text-muted); line-height: 1.55; }
 
 /* ── About ── */
-.about { padding: 2rem 0 1.5rem; border-top: 1px solid var(--border); }
+.about { padding: var(--space-section) 0 1.5rem; border-top: 1px solid var(--border); }
 .about-text {
   font-size: 0.88rem; color: var(--text-secondary);
-  line-height: 1.75; margin-bottom: 1rem;
+  line-height: 1.75; margin-bottom: 0.75rem;
 }
 .about-text strong { color: var(--text); font-weight: 500; }
-.about-tags {
-  display: flex; flex-wrap: wrap; gap: 0.35rem;
-}
-.about-tag {
-  font-size: 0.6rem; font-weight: 500; color: var(--text-muted);
-  background: var(--bg-raised); border: 1px solid var(--border-light);
-  padding: 0.2rem 0.6rem; border-radius: 50px; letter-spacing: 0.02em;
-}
 
 /* ── Ventures ── */
-.ventures { padding: 1.5rem 0 1.5rem; }
+.ventures { padding: var(--space-section) 0; }
 .venture-card {
   display: block; text-decoration: none; color: inherit;
   padding: 1.35rem 1.5rem; border-radius: var(--radius);
@@ -316,11 +353,11 @@ a.biziq-card:hover .biziq-arrow { color: var(--accent); transform: translate(2px
   pointer-events: none;
 }
 .venture-emoji { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
-.venture-card h3 {
+.venture-card h4 {
   font-family: var(--serif); font-size: 1.05rem;
   font-weight: 500; margin-bottom: 0.3rem; transition: color 0.25s;
 }
-.venture-card:hover h3 { color: #6abf6a; }
+.venture-card:hover h4 { color: #6abf6a; }
 .venture-card p {
   font-size: 0.78rem; color: var(--text-muted); line-height: 1.6;
 }
@@ -331,9 +368,21 @@ a.biziq-card:hover .biziq-arrow { color: var(--accent); transform: translate(2px
 
 /* ── Footer ── */
 footer {
-  padding: 1.75rem 0 2.25rem; border-top: 1px solid var(--border);
-  margin-top: 1rem; text-align: center;
+  padding: var(--space-section) 0 2.5rem; border-top: 1px solid var(--border);
+  margin-top: 0.5rem; text-align: center;
 }
+.footer-cta {
+  font-family: var(--serif);
+  font-size: 0.92rem; font-weight: 400; font-style: italic;
+  color: var(--text-secondary); line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.footer-cta a {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid rgba(110,164,191,0.3);
+  transition: border-color 0.25s;
+}
+.footer-cta a:hover { border-bottom-color: var(--accent); }
 .footer-links {
   display: flex; justify-content: center; gap: 1.25rem; margin-bottom: 0.6rem;
 }
@@ -357,11 +406,14 @@ footer {
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .tile-grid { grid-template-columns: 1fr; }
+  .tile-featured { grid-column: auto; }
   .biziq-metrics { grid-template-columns: repeat(2, 1fr); }
   .hero h1 { font-size: 1.5rem; }
+  .prin-grid { grid-template-columns: 1fr; }
   .tile-chips { display: none; }
   .topnav-links { gap: 0.8rem; }
   .nav-dot { display: none; }
+  .biziq-card { padding: 1.5rem 1.25rem; }
 }
 @media (max-width: 380px) {
   .biziq-metrics { grid-template-columns: 1fr 1fr; }
@@ -376,10 +428,9 @@ footer {
 <!-- ── STICKY NAV ── -->
 <nav class="topnav" role="navigation" aria-label="Primary navigation">
   <div class="topnav-inner">
-    <a href="#" class="topnav-mark">Tyler Hughes's <em>AI Laboratory</em></a>
+    <a href="#" class="topnav-mark">Tyler Hughes's <em>AI Lab</em></a>
     <div class="topnav-links">
       <a href="#platform">BizIQ</a>
-      <a href="#production">Production</a>
       <a href="#prototypes">Prototypes</a>
       <a href="#about">About</a>
       <span class="nav-dot" aria-hidden="true">&#9679;</span>
@@ -393,9 +444,8 @@ footer {
 
   <!-- ── WELCOME ── -->
   <section class="hero reveal" aria-label="Welcome">
-    <span class="hero-wave" aria-hidden="true">&#128075;</span>
     <h1>
-      <strong>Welcome to my lab.</strong>
+      <strong>Welcome to the Lab.</strong>
       This is where I keep the things I'm building at Michigan Medicine &#8212; and a few side projects that keep things fun.
     </h1>
     <p class="hero-sub">
@@ -410,18 +460,21 @@ footer {
     </svg>
   </div>
 
-  <!-- ── BIZIQ ── -->
+  <!-- ── BIZIQ: THE CROWN JEWEL ── -->
   <section class="biziq reveal" id="platform" aria-label="BizIQ Analytics Platform">
     <div class="section-label">The Platform</div>
     <a href="https://tab.med.umich.edu/#/views/TableauDirectory/Welcome" target="_blank" rel="noopener noreferrer" class="biziq-card">
       <div class="biziq-live">Production &#183; Scaling Across Michigan Medicine</div>
-      <div style="display:flex;align-items:baseline;gap:0.6rem;margin-bottom:0.15rem;">
-        <h3>BizIQ</h3>
-        <span style="font-size:0.75rem;color:var(--text-muted);transition:all 0.3s;" class="biziq-arrow" aria-hidden="true">&#8599;</span>
+      <div class="biziq-title-row">
+        <h3>BizIQ &#8212; Dashboard Suite</h3>
+        <span class="biziq-arrow" aria-hidden="true">&#8599;</span>
       </div>
       <p class="biziq-desc">
         The analytics platform I built for the Department of Urology &#8212; now expanding across Michigan Medicine's surgical departments. Faculty compensation, provider scheduling, OR utilization, and strategic reporting all live here. It started as one Tableau dashboard. It didn't stay one for long.
       </p>
+      <div class="biziq-impact">
+        Before BizIQ, pulling a compensation benchmark meant weeks of manual data aggregation across disconnected systems. Scheduling visibility required calling three different offices. Now, <strong>department leadership accesses real-time operational intelligence in a single platform</strong> &#8212; the same data that used to take weeks is available on-demand, and it's driving decisions on faculty recruitment, OR allocation, and strategic growth.
+      </div>
       <div class="biziq-metrics">
         <div class="metric">
           <span class="metric-num count-up" data-target="75">0</span>
@@ -440,34 +493,58 @@ footer {
           <div class="metric-label">Adoption</div>
         </div>
       </div>
+      <p class="biziq-note">Requires Michigan Medicine authentication to access.</p>
     </a>
   </section>
 
   <!-- ── PULSE ── -->
-  <div class="pulse-divider" aria-hidden="true">
+  <div class="pulse-divider pulse-warm" aria-hidden="true">
     <svg viewBox="0 0 1200 36" preserveAspectRatio="none">
       <path class="pulse-line" d="M0,18 L420,18 L448,18 L460,7 L472,29 L484,10 L496,26 L508,18 L540,18 L1200,18"/>
     </svg>
   </div>
 
-  <!-- ── PRODUCTION ── -->
-  <section class="tiles reveal" id="production" aria-label="Production Projects">
-    <div class="section-label">In Production</div>
-    <p class="section-subtitle">Live tools and sites actively serving the department.</p>
+  <!-- ── PROTOTYPES ── -->
+  <section class="tiles reveal" id="prototypes" aria-label="Prototypes">
+    <div class="section-label">Prototypes</div>
+    <div class="disclaimer">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M8 1L15 14H1L8 1Z" stroke="#e0a040" stroke-width="1.3" fill="none"/>
+        <line x1="8" y1="6" x2="8" y2="10" stroke="#e0a040" stroke-width="1.3" stroke-linecap="round"/>
+        <circle cx="8" cy="12" r="0.7" fill="#e0a040"/>
+      </svg>
+      Working prototypes &#8212; built to explore ideas and demonstrate capability. Not production-grade. Content and data are for demonstration purposes only.
+    </div>
     <div class="tile-grid">
 
-      <a href="https://tyhugs.github.io/Urology/" target="_blank" rel="noopener noreferrer" class="tile">
+      <!-- Featured: Patient Website (full-width) -->
+      <a href="https://tyhugs.github.io/Urology/" target="_blank" rel="noopener noreferrer" class="tile tile-featured">
         <div class="tile-top">
-          <h3>Michigan Urology Patient Website</h3>
+          <h3>Michigan Urology &#8212; Patient Website</h3>
           <span class="tile-arrow" aria-hidden="true">&#8599;</span>
         </div>
-        <span class="badge badge-prod">Production</span>
-        <p class="tile-desc">The digital front door for the Department of Urology &#8212; faculty profiles, patient education, symptom-based triage, and QR-scannable provider pages, all in one place.</p>
+        <span class="badge badge-proto">Prototype</span>
+        <p class="tile-desc">A digital front door concept for the Department of Urology &#8212; faculty profiles, patient education, symptom-based triage, and QR-scannable provider pages. Built to show what a unified patient experience could look like for one of the nation's top urology programs.</p>
         <div class="tile-chips">
-          <span class="chip">55 Faculty</span>
-          <span class="chip">25+ Articles</span>
+          <span class="chip">55 Faculty Profiles</span>
+          <span class="chip">25+ Education Articles</span>
           <span class="chip">Symptom Triage</span>
-          <span class="chip">QR Pages</span>
+          <span class="chip">QR Provider Pages</span>
+        </div>
+      </a>
+
+      <!-- Two-column tiles -->
+      <a href="https://tyhugs.github.io/BizIQ-Scheduling/" target="_blank" rel="noopener noreferrer" class="tile">
+        <div class="tile-top">
+          <h3>BizIQ Scheduling</h3>
+          <span class="tile-arrow" aria-hidden="true">&#8599;</span>
+        </div>
+        <span class="badge badge-proto">Prototype</span>
+        <p class="tile-desc">The scheduling intelligence layer &#8212; provider allocation, OR blocks, clinic templates, and an AI agent that answers scheduling questions in natural language.</p>
+        <div class="tile-chips">
+          <span class="chip">~90 Providers</span>
+          <span class="chip">OR Blocks</span>
+          <span class="chip">AI Agent</span>
         </div>
       </a>
 
@@ -476,8 +553,8 @@ footer {
           <h3>Urology Projects Portal</h3>
           <span class="tile-arrow" aria-hidden="true">&#8599;</span>
         </div>
-        <span class="badge badge-prod">Production</span>
-        <p class="tile-desc">A central hub for the department's active projects and strategic initiatives &#8212; giving leadership a clear view of what's in flight, what's coming, and where resources are focused.</p>
+        <span class="badge badge-proto">Prototype</span>
+        <p class="tile-desc">A central hub concept for tracking the department's active projects, strategic initiatives, and operational improvements at a glance.</p>
         <div class="tile-chips">
           <span class="chip">Project Tracker</span>
           <span class="chip">Strategic View</span>
@@ -485,6 +562,17 @@ footer {
         </div>
       </a>
 
+    </div>
+
+    <!-- More experiments as compact links -->
+    <div class="more-list">
+      <span style="font-size:0.68rem; color:var(--text-muted); padding:0.4rem 0;">More experiments:</span>
+      <a href="https://tyhugs.github.io/Urology-Schedules/" target="_blank" rel="noopener noreferrer" class="more-link">
+        Provider Schedules <span class="more-arrow">&#8599;</span>
+      </a>
+      <a href="https://tyhugs.github.io/Urodynamics/" target="_blank" rel="noopener noreferrer" class="more-link">
+        Urodynamics Portal <span class="more-arrow">&#8599;</span>
+      </a>
     </div>
   </section>
 
@@ -495,97 +583,43 @@ footer {
     </svg>
   </div>
 
-  <!-- ── PROTOTYPES ── -->
-  <section class="tiles reveal" id="prototypes" aria-label="Prototype Projects">
-    <div class="section-label">Prototypes</div>
-    <div class="disclaimer">
-      <span class="disclaimer-icon" aria-hidden="true">&#9888;</span>
-      Working prototypes &#8212; built to demonstrate capability and explore ideas. Not production-grade. Content and data are for demonstration purposes only.
-    </div>
-    <div class="tile-grid">
-
-      <a href="https://tyhugs.github.io/BizIQ-Scheduling/" target="_blank" rel="noopener noreferrer" class="tile">
-        <div class="tile-top">
-          <h3>BizIQ Scheduling</h3>
-          <span class="tile-arrow" aria-hidden="true">&#8599;</span>
-        </div>
-        <span class="badge badge-proto">Prototype</span>
-        <p class="tile-desc">The scheduling intelligence layer for BizIQ &#8212; provider allocation, OR blocks, clinic templates, and an AI agent that answers scheduling questions in natural language.</p>
-        <div class="tile-chips">
-          <span class="chip">~90 Providers</span>
-          <span class="chip">OR Blocks</span>
-          <span class="chip">AI Agent</span>
-        </div>
-      </a>
-
-      <a href="https://tyhugs.github.io/Urology-Schedules/" target="_blank" rel="noopener noreferrer" class="tile">
-        <div class="tile-top">
-          <h3>Provider Schedules</h3>
-          <span class="tile-arrow" aria-hidden="true">&#8599;</span>
-        </div>
-        <span class="badge badge-proto">Prototype</span>
-        <p class="tile-desc">A streamlined view into provider-level scheduling &#8212; clinic templates, coverage patterns, and QGenda integration. Built for operations teams who need to see who's where and when.</p>
-        <div class="tile-chips">
-          <span class="chip">QGenda</span>
-          <span class="chip">Clinic Templates</span>
-          <span class="chip">Coverage</span>
-        </div>
-      </a>
-
-      <a href="https://tyhugs.github.io/Urodynamics/" target="_blank" rel="noopener noreferrer" class="tile">
-        <div class="tile-top">
-          <h3>Urodynamics Portal</h3>
-          <span class="tile-arrow" aria-hidden="true">&#8599;</span>
-        </div>
-        <span class="badge badge-proto">Prototype</span>
-        <p class="tile-desc">A dedicated portal for the urodynamics program &#8212; procedure information, provider details, and patient-facing resources for one of urology's most specialized services.</p>
-        <div class="tile-chips">
-          <span class="chip">Subspecialty</span>
-          <span class="chip">Patient Info</span>
-          <span class="chip">Workflows</span>
-        </div>
-      </a>
-
+  <!-- ── PRINCIPLES (Trimmed to 2) ── -->
+  <section class="principles reveal" aria-label="How I Work">
+    <div class="section-label">How I Work</div>
+    <div class="prin-grid">
+      <div class="prin">
+        <span class="prin-n" aria-hidden="true">01</span>
+        <h4>Ship First, Perfect Later</h4>
+        <p>The best dashboard I ever built was the ugly one I shipped in 48 hours. It was wrong in six places, but it was in the hands of the people who needed it. We fixed it together. That's how trust gets built.</p>
+      </div>
+      <div class="prin">
+        <span class="prin-n" aria-hidden="true">02</span>
+        <h4>Build for the Decision Maker</h4>
+        <p>Nobody in a leadership meeting asks about R&#178; scores. They ask whether to hire another surgeon or open a Saturday clinic. Build for that question, not the model behind it.</p>
+      </div>
     </div>
   </section>
-
-  <!-- ── PULSE ── -->
-  <div class="pulse-divider pulse-warm" aria-hidden="true">
-    <svg viewBox="0 0 1200 36" preserveAspectRatio="none">
-      <path class="pulse-line" d="M0,18 L200,18 L226,18 L240,11 L254,25 L268,6 L282,30 L296,15 L310,21 L328,18 L1200,18"/>
-    </svg>
-  </div>
 
   <!-- ── ABOUT ── -->
   <section class="about reveal" id="about" aria-label="About">
     <div class="section-label">About</div>
     <p class="about-text">
-      <strong>Tyler Hughes</strong> is a Lead Business Consultant at the University of Michigan Health, Department of Urology. He founded <strong>BizIQ</strong> &#8212; an analytics platform built on Tableau that serves the department's operational, financial, and strategic decision-making needs. His day-to-day spans provider scheduling, faculty compensation modeling, patient-facing digital tools, and whatever else helps leadership make better decisions faster.
+      <strong>Tyler Hughes</strong> builds the tools that help academic medicine make faster, smarter decisions. As Lead Business Consultant for the University of Michigan Department of Urology, he founded <strong>BizIQ</strong> &#8212; an analytics platform built on Tableau that serves the department's operational, financial, and strategic needs. His work spans provider scheduling, faculty compensation modeling, patient-facing digital tools, and whatever else leadership needs to move forward with confidence.
     </p>
     <p class="about-text">
       MBA. Background in technology sales, IT leadership, and healthcare operations. Believes the best tools are the ones people actually use.
     </p>
-    <div class="about-tags">
-      <span class="about-tag">MBA</span>
-      <span class="about-tag">Healthcare Ops</span>
-      <span class="about-tag">Tableau</span>
-      <span class="about-tag">AI/ML</span>
-      <span class="about-tag">Web Development</span>
-      <span class="about-tag">IT Leadership</span>
-    </div>
   </section>
 
   <!-- ── VENTURES ── -->
   <section class="ventures reveal" aria-label="Side Ventures">
-    <div class="section-label">Side Ventures</div>
+    <div class="section-label">After Hours</div>
     <p class="section-subtitle">Sometimes a local business just needs a good website. I like building those too.</p>
     <a href="https://tyhugs.github.io/Lee-Brothers/" target="_blank" rel="noopener noreferrer" class="venture-card">
       <span class="venture-emoji" aria-hidden="true">&#127793;</span>
-      <h3>Lee Brothers Xscapes</h3>
-      <p>
-        A complete website for a local lawn care company that had zero digital presence. Full branding, mobile-responsive design, local SEO &#8212; the whole package, hosted for free.
-      </p>
-      <p class="venture-fun">Built with the same care as the big stuff. Grass deserves good design too.</p>
+      <h4>Lee Brothers Xscapes</h4>
+      <p>A complete website for a local lawn care company that had zero digital presence. Full branding, mobile-responsive, local SEO &#8212; the whole package, hosted for free.</p>
+      <p class="venture-fun">Grass deserves good design too.</p>
     </a>
   </section>
 
@@ -593,6 +627,10 @@ footer {
 
   <!-- ── FOOTER ── -->
   <footer role="contentinfo">
+    <p class="footer-cta">
+      Building something in healthcare analytics? I'd love to hear about it.<br>
+      <a href="https://www.linkedin.com/in/tyhughes1" target="_blank" rel="noopener noreferrer">Let's connect on LinkedIn</a>
+    </p>
     <div class="footer-links">
       <a href="https://github.com/tyhugs" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://www.linkedin.com/in/tyhughes1" target="_blank" rel="noopener noreferrer">LinkedIn</a>
